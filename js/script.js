@@ -1,3 +1,5 @@
+
+
 function validarFormulario() {
     var nome = document.getElementById("nome").value;
     var segundonome = document.getElementById("segundonome").value;
@@ -9,9 +11,18 @@ function validarFormulario() {
       alert("O nome deve ter no mínimo 5 caracteres.");
       return false;
     }
+    if (nome.trim() === "") {
+      alert("Por favor, preencha o campo 'Nome'.");
+      return false;
+    }
 
     if (segundonome.length < 5) {
         alert("O segundo nome deve ter no mínimo 5 caracteres.");
+        return false;
+      }
+
+      if (segundonome.trim() === "") {
+        alert("Por favor, preencha o campo 'Segundo nome'.");
         return false;
       }
     
@@ -23,14 +34,26 @@ function validarFormulario() {
         alert("O email deve ter no mínimo 5 caracteres.");
         return false;
     }
+    if (email.trim() === "") {
+      alert("Por favor, preencha o campo 'E-mail'.");
+      return false;
+    }
 
     if (senha.length < 6 || senha.length > 8) {
       alert("A senha deve ter entre 6 e 8 caracteres.");
       return false;
     }
+    if (senha.trim() === "") {
+      alert("Por favor, preencha o campo 'Senha'.");
+      return false;
+    }
     
     if (senha.length === 0 || senha !== confirmarSenha) {
       alert("As senhas não correspondem. Por favor, tente novamente.");
+      return false;
+    }
+    if (confirmarSenha.trim() === "") {
+      alert("Por favor, preencha o campo 'Confirmar Senha'.");
       return false;
     }
 }
