@@ -11,6 +11,25 @@ inputEmail.fs = document.querySelector("#fsEmail");
 inputSenha.fs = document.querySelector("#fsSenha");
 inputConfirmSenha.fs = document.querySelector("#fsConfSenha");
 
+
+const invalidColor = "#b61414"; // A cor que os elementos apresentam quando o input esta invalido
+
+// CRIANDO MODELO DE MENSAGEM DE ERRO
+const errorMessageType = "span";
+const errorMessageSize = "12px";
+const errorMessageColor = invalidColor;
+
+
+
+//Evitando que o formulário se submeta sem validação
+const form = document.querySelector("form");
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+})
+
+
+
 // Função para lançar uma mensagem de erro no HTML
 function throwErrorMessage(element, message)
 {
@@ -31,13 +50,13 @@ function throwErrorMessage(element, message)
 
 function basicValid(numOfCaract,element) // Verifica se o compo possui o minimo de caracteres e se não é vazio
 {
-  if(inputName.value.trim() == "")
+  if(element.value.trim() == "")
   {
     //element não pode ser vazio
     let texto = `${element.name} não pode ser vazio`;
     throwErrorMessage(element.fs,texto);
   }
-  else if(inputName.value.trim().length < numOfCaract)
+  else if(element.value.trim().length < numOfCaract)
   {
     //elemente não pode ser menor que numOfCaract
     let texto = `${element.name} não pode ser menor que ${numOfCaract} caracteres`;
@@ -46,9 +65,41 @@ function basicValid(numOfCaract,element) // Verifica se o compo possui o minimo 
   else
   {
     //Esta dentro dos padrões
+    if(element.fs.lastChild.classList == "error")
+    {
+        element.fs.lastChild.remove();
+    }
 
   }
 }
+
+inputName.addEventListener("blur",()=>{basicValid(5,inputName)});
+inputLastName.addEventListener("blur",()=>{basicValid(5,inputLastName)});
+inputEmail.addEventListener("blur",()=>{
+  basicValid(5,inputEmail);
+  if(!inputEmail.value.includes("@"))
+    throwErrorMessage(inputEmail.fs,"Email Inválido");
+});
+
+inputSenha.addEventListener("blur",()=>{
+  basicValid(6,inputSenha);
+  if(inputSenha.value.trim().length > 8)
+    throwErrorMessage(inputSenha.fs,"Senha pode ter no máximo 8 caracteres");
+});
+
+inputConfirmSenha.addEventListener("blur",()=>{
+  if(inputConfirmSenha.value.trim() != inputSenha.value.trim())
+  {
+    throwErrorMessage(inputConfirmSenha.fs,"Senha diferente")
+  }else
+  {
+    if(inputConfirmSenha.fs.lastChild.classList == "error")
+    {
+      inputConfirmSenha.fs.lastChild.remove();
+    }
+  }
+});
+
 
 
 // function validarFormulario() {
