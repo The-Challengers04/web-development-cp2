@@ -19,7 +19,27 @@ const errorMessageType = "span";
 const errorMessageSize = "12px";
 const errorMessageColor = invalidColor;
 
+// Obtenha o botão de alternar modo pelo ID
+const darkModeBtn = document.getElementById('darkModeBtn');
 
+// Adicione um ouvinte de eventos para o clique do botão
+darkModeBtn.addEventListener('click', function() {
+  // Obtenha o elemento body
+  const body = document.body;
+  // Alternar a classe dark-mode no body
+  body.classList.toggle('dark-mode');
+
+  // Atualizar o texto do botão com base no modo atual
+  if (body.classList.contains('dark-mode')) {
+    darkModeBtn.textContent = 'Modo Claro';
+    body.style.backgroundColor = '#1f1f1f'
+    body.style.color = '#ffffff'
+  } else {
+    darkModeBtn.textContent = 'Modo Escuro';
+    body.style.backgroundColor = '#ffffff'
+  body.style.color = '#1f1f1f'
+  }
+});
 
 //Evitando que o formulário se submeta sem validação
 const form = document.querySelector("form");
